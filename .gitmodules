@@ -1,0 +1,3 @@
+[submodule "wp-e2e-tests"]
+	path = wp-e2e-tests
+	url = https://github.com/Automattic/wp-e2e-tests

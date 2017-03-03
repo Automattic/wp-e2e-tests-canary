@@ -1,0 +1,25 @@
+machine:
+  node:
+    version: 6.9.4
+
+general:
+  artifacts:
+    - "wp-e2e-tests/screenshots"
+    - "wp-e2e-tests/logs"
+
+checkout:
+  post:
+    - git submodule init
+    - git submodule update --remote --force
+
+dependencies:
+  cache_directories:
+    - "wp-e2e-tests/node_modules"
+  override:
+    - cd wp-e2e-tests && npm pack lib/reporter
+    - cd wp-e2e-tests && npm install ./spec-xunit-slack-reporter-0.0.1.tgz
+    - cd wp-e2e-tests && npm install
+
+test:
+  override:
+    - cd wp-e2e-tests && ./run.sh -R -C $RUN_ARGS
