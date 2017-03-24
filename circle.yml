@@ -11,14 +11,11 @@ checkout:
   post:
     - git submodule init
     - git submodule update --remote --force
-    - touch $CIRCLE_ARTIFACTS/$(curl https://api.github.com/repos/Automattic/wp-calypso/commits 2>/dev/null | jq -r '.[0].sha')
 
 dependencies:
   cache_directories:
     - "wp-e2e-tests/node_modules"
   override:
-    - cd wp-e2e-tests && npm pack lib/reporter
-    - cd wp-e2e-tests && npm install ./spec-xunit-slack-reporter-0.0.1.tgz
     - cd wp-e2e-tests && npm install
 
 test:
