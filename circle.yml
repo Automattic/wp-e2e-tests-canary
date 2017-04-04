@@ -20,4 +20,5 @@ dependencies:
 
 test:
   override:
-    - cd wp-e2e-tests && ./run.sh -R -C $RUN_ARGS
+    - cd wp-e2e-tests && ./run.sh -R -C $RUN_ARGS:
+        parallel: true
