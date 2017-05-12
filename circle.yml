@@ -20,5 +20,4 @@ dependencies:
 
 test:
   override:
-    - cd wp-e2e-tests && ./run.sh -R -C $RUN_ARGS:
-        parallel: true
+    - cd wp-e2e-tests && git checkout origin/${E2E_BRANCH-master} && ./run.sh -R -C $RUN_ARGS
