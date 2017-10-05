@@ -25,3 +25,7 @@ test:
   override:
     - echo running test command "./run.sh -R -C $RUN_ARGS"
     - cd wp-e2e-tests && git checkout origin/${E2E_BRANCH-master} && ./run.sh -R -C $RUN_ARGS
+
+notify:
+  webhooks:
+    - url: https://a8cghcirclebridge.herokuapp.com/circleciwebhook
