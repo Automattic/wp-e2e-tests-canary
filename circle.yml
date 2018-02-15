@@ -1,6 +1,9 @@
 machine:
   node:
     version: 8.9.3
+  environment:
+      NODE_ENV: test
+      TARGET: CANARY
 
 general:
   artifacts:
@@ -20,4 +23,4 @@ dependencies:
 
 test:
   override:
-    - cd wp-e2e-tests && git checkout origin/${E2E_BRANCH-master} && ./run.sh -R -C $RUN_ARGS
+    - cd wp-e2e-tests && git checkout origin/${E2E_BRANCH-master} && npm run decryptconfig && ./run.sh -R -C $RUN_ARGS
