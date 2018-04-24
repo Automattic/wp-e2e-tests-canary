@@ -5,8 +5,8 @@ jobs:
     docker:
       - image: 'circleci/node:8.11.0-browsers'
         environment:
--         NODE_ENV: test
--         TARGET: CANARY
+          NODE_ENV: test
+          TARGET: CANARY
     steps:
       - checkout
       - run: git submodule init
