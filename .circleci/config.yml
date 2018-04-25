@@ -1,0 +1,22 @@
+version: 2
+jobs:
+  build:
+    working_directory: ~/wp-e2e-tests
+    docker:
+      - image: 'circleci/node:8.11.0-browsers'
+        environment:
+          NODE_ENV: test
+          TARGET: CANARY
+    steps:
+      - checkout
+      - run: git submodule init
+      - run: git submodule update --remote --force
+      - run: cd wp-e2e-tests && git checkout origin/${E2E_BRANCH-master}
+      - run: cd wp-e2e-tests && npm install
+      - run: cd wp-e2e-tests && npm run decryptconfig && ./run.sh -R -C $RUN_ARGS
+      - store_test_results:
+          path: wp-e2e-tests/reports/
+      - store_artifacts:
+          path: wp-e2e-tests/reports/
+      - store_artifacts:
+          path: wp-e2e-tests/screenshots/
