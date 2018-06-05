@@ -19,6 +19,7 @@ jobs:
           key: v1-{{ checksum "wp-e2e-tests/package-lock.json" }}
           paths:
             - "wp-e2e-tests/node_modules"
+      - run: sudo chmod +x node_modules/.bin/magellan
       - run: cd wp-e2e-tests && npm run decryptconfig && ./run.sh -R -C $RUN_ARGS
       - store_test_results:
           path: wp-e2e-tests/reports/
