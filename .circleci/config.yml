@@ -14,12 +14,12 @@ jobs:
       - run: cd wp-e2e-tests && git checkout origin/${E2E_BRANCH-master}
       - restore_cache:
           keys: 
-             - v1-node10-{{ checksum "wp-e2e-tests/package-lock.json" }}
-             - v1-node10
-             
+             - v1-{{ checksum "wp-e2e-tests/.nvmrc" }}-{{ checksum "wp-e2e-tests/package-lock.json" }}
+             - v1-{{ checksum "wp-e2e-tests/.nvmrc" }}
+
       - run: cd wp-e2e-tests && npm ci
       - save_cache:
-          key: v1-node10-{{ checksum "wp-e2e-tests/package-lock.json" }}
+          key: v1-{{ checksum "wp-e2e-tests/.nvmrc" }}-{{ checksum "wp-e2e-tests/package-lock.json" }}
           paths:
             - ~/.npm
       - run: sudo chmod +x wp-e2e-tests/node_modules/.bin/magellan
