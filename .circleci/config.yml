@@ -3,7 +3,7 @@ jobs:
   build:
     working_directory: ~/wp-e2e-tests
     docker:
-      - image: 'circleci/node:10.4.1-browsers'
+      - image: 'circleci/node:10.5.0-browsers'
         environment:
           NODE_ENV: test
           TARGET: CANARY
@@ -13,10 +13,9 @@ jobs:
       - run: git submodule update --remote --force
       - run: cd wp-e2e-tests && git checkout origin/${E2E_BRANCH-master}
       - restore_cache:
-          keys: 
+          keys:
              - v1-{{ checksum "wp-e2e-tests/.nvmrc" }}-{{ checksum "wp-e2e-tests/package-lock.json" }}
              - v1-{{ checksum "wp-e2e-tests/.nvmrc" }}
-
       - run: cd wp-e2e-tests && npm ci
       - save_cache:
           key: v1-{{ checksum "wp-e2e-tests/.nvmrc" }}-{{ checksum "wp-e2e-tests/package-lock.json" }}
