@@ -1,7 +1,7 @@
 version: 2
 jobs:
   build:
-    working_directory: ~/wp-e2e-tests
+    working_directory: ~/wp-calypso
     docker:
       - image: 'circleci/node:$NODE_VERSION-browsers'
         environment:
@@ -11,21 +11,21 @@ jobs:
       - checkout
       - run: git submodule init
       - run: git submodule update --remote --force
-      - run: cd wp-e2e-tests && git checkout origin/${E2E_BRANCH-master}
+      - run: cd wp-calypso && git checkout origin/${E2E_BRANCH-master}
       - restore_cache:
           keys:
-             - v1-{{ checksum "wp-e2e-tests/.nvmrc" }}-{{ checksum "wp-e2e-tests/package-lock.json" }}
-             - v1-{{ checksum "wp-e2e-tests/.nvmrc" }}
-      - run: cd wp-e2e-tests && npm ci
+             - v1-{{ checksum "wp-calypso/.nvmrc" }}-{{ checksum "wp-calypso/test/e2e/package-lock.json" }}
+             - v1-{{ checksum "wp-calypso/.nvmrc" }}
+      - run: cd wp-calypso/test/e2e && npm ci
       - save_cache:
-          key: v1-{{ checksum "wp-e2e-tests/.nvmrc" }}-{{ checksum "wp-e2e-tests/package-lock.json" }}
+          key: v1-{{ checksum "wp-calypso/.nvmrc" }}-{{ checksum "wp-calypso/test/e2e/package-lock.json" }}
           paths:
             - ~/.npm
-      - run: sudo chmod +x wp-e2e-tests/node_modules/.bin/magellan
-      - run: cd wp-e2e-tests && npm run decryptconfig && ./run.sh -R -C $RUN_ARGS
+      - run: sudo chmod +x wp-calypso/test/e2e/node_modules/.bin/magellan
+      - run: cd wp-calypso/test/e2e && npm run decryptconfig && ./run.sh -R -C $RUN_ARGS
       - store_test_results:
-          path: wp-e2e-tests/reports/
+          path: wp-calypso/test/e2e/reports/
       - store_artifacts:
-          path: wp-e2e-tests/reports/
+          path: wp-calypso/test/e2e/reports/
       - store_artifacts:
-          path: wp-e2e-tests/screenshots/
+          path: wp-calypso/test/e2e/screenshots/
