@@ -11,7 +11,7 @@ jobs:
       - checkout
       - run: git submodule init
       - run: git submodule update --remote --force
-      - run: cd wp-calypso && git checkout origin/${E2E_BRANCH-master}
+      - run: cd wp-calypso && git checkout ${stage_revision-origin/master}
       - restore_cache:
           keys:
              - v1-{{ checksum "wp-calypso/.nvmrc" }}-{{ checksum "wp-calypso/test/e2e/package-lock.json" }}
