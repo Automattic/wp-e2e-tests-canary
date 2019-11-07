@@ -24,7 +24,7 @@ jobs:
           paths:
             - ~/.npm
       - run: sudo chmod +x wp-calypso/test/e2e/node_modules/.bin/magellan
-      - run: cd wp-calypso/test/e2e && npm run decryptconfig && ./run.sh -R -C $RUN_ARGS
+      - run: cd wp-calypso/test/e2e && npm run decryptconfig && ./run.sh -R -C -l osx-chrome $RUN_ARGS
       - store_test_results:
           path: wp-calypso/test/e2e/reports/
       - store_artifacts:
