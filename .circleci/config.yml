@@ -3,7 +3,7 @@ jobs:
   build:
     working_directory: ~/wp-calypso
     docker:
-      - image: 'circleci/node:$NODE_VERSION-browsers'
+      - image: circleci/node:12.16.1-browsers
         environment:
           NODE_ENV: test
           TARGET: CANARY
