@@ -3,17 +3,17 @@ jobs:
   build:
     working_directory: ~/wp-calypso
     docker:
-      - image: 'circleci/node:$NODE_VERSION-browsers'
+      - image: "circleci/node:$NODE_VERSION-browsers"
         environment:
           NODE_ENV: test
           TARGET: CANARY
-          DETECT_CHROMEDRIVER_VERSION: 'false'
+          DETECT_CHROMEDRIVER_VERSION: "false"
           CHROMEDRIVER_FILEPATH: /usr/local/bin/chromedriver
     steps:
       - checkout
       - run: git submodule init
       - run: git submodule update --remote --force
-      - run: cd wp-calypso && git checkout ${stage_revision-origin/master}
+      - run: cd wp-calypso && git checkout ${stage_revision-origin/trunk}
       - restore_cache:
           keys:
             - v1-packages-{{ checksum "wp-calypso/.nvmrc" }}-{{ checksum "wp-calypso/yarn.lock" }}-{{ checksum "wp-calypso/test/e2e/package.json" }}
