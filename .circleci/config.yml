@@ -29,7 +29,7 @@ jobs:
       - run: |
           google-chrome --version > wp-calypso/test/e2e/.chromedriver_version
           echo -n "Google Chrome version: " && cat wp-calypso/test/e2e/.chromedriver_version
-      - run: sudo chmod +x wp-calypso/test/e2e/node_modules/.bin/magellan
+      - run: sudo chmod +x wp-calypso/node_modules/.bin/magellan
       - run: cd wp-calypso/test/e2e && yarn run decryptconfig && ./run.sh -R -C $SAUCE_ARG $RUN_ARGS
       - store_test_results:
           path: wp-calypso/test/e2e/reports/
