@@ -16,16 +16,15 @@ jobs:
       - run: cd wp-calypso && git checkout ${stage_revision-origin/trunk}
       - restore_cache:
           keys:
-            - v1-packages-{{ checksum "wp-calypso/.nvmrc" }}-{{ checksum "wp-calypso/yarn.lock" }}-{{ checksum "wp-calypso/test/e2e/package.json" }}
-            - v1-packages-{{ checksum "wp-calypso/.nvmrc" }}-{{ checksum "wp-calypso/yarn.lock" }}
-            - v1-packages-{{ checksum "wp-calypso/.nvmrc" }}
-            - v1-packages
+            - v2-packages-{{ checksum "wp-calypso/.yarnrc.yml" }}
+            - v2-packages
       - run: |
-          cd wp-calypso/test/e2e && yarn --frozen-lockfile
+          cd wp-calypso/test/e2e && yarn --immutable
       - save_cache:
-          key: v1-packages-{{ checksum "wp-calypso/.nvmrc" }}-{{ checksum "wp-calypso/yarn.lock" }}-{{ checksum "wp-calypso/test/e2e/package.json" }}
+          key: v2-packages-{{ checksum "wp-calypso/.yarnrc.yml" }}
           paths:
-            - ~/.cache/yarn
+            # This is the default path when using enableGlobalCache:true
+            - ~/.yarn/berry/cache
       - run: |
           google-chrome --version > wp-calypso/test/e2e/.chromedriver_version
           echo -n "Google Chrome version: " && cat wp-calypso/test/e2e/.chromedriver_version
